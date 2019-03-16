@@ -1,8 +1,71 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles{
+<link rel="stylesheet" href="~/css/index.css" />
+}
+
+
+
+<header>
+    <h1 class="text-center title">Blog</h1>
+</header>
+<div class="content row">
+    <div class="main col-md-8">
+        <div class="articles">
+            <div class="article">
+                <div class="article-title">
+                    <h3>文章标题</h3>
+                    <p class="text-secondary">发布于2000年1月1日&nbsp;<a>编辑</a></p>
+                </div>
+                <div class="article-content">
+                    <p>文章内容</p>
+                </div>
+            </div>
+            <div class="article">
+                <div class="article-title">
+                    <h3>文章标题</h3>
+                    <p class="text-secondary">发布于2000年1月1日&nbsp;<a>编辑</a></p>
+                </div>
+                <div class="article-content">
+                    <p>文章内容</p>
+                </div>
+            </div>
+        </div>
+        <pager></pager>
+    </div>
+    <div class="col-md-3 offset-md-1">
+        <div class="search-box">
+            <input class="form-control" placeholder="搜索..." />
+        </div>
+        <div class="category-box">
+            <h5>分类目录</h5>
+            <div class="categories">
+                <div class="category">
+                    <a class="text-dark">分类1</a>
+                </div>
+                <div class="category">
+                    <a class="text-dark">分类2</a>
+                </div>
+            </div>
+        </div>
+        <div class="function-box">
+            <h5>功能</h5>
+            <div class="functions">
+                <div class="function">
+                    <a class="text-dark">登录</a>
+                </div>
+                <div class="function">
+                    <a class="text-dark">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
