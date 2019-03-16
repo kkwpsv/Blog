@@ -3,7 +3,12 @@
 }
 
 @section Styles{
-<link rel="stylesheet" href="~/css/index.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/index.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/index.min.css" />
+    </environment>
 }
 
 <header>
