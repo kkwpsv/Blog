@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Blog
 {
@@ -25,6 +28,11 @@ namespace Blog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddDbContext<DataContext>(optionsAction => optionsAction.UseMySql(Configuration.GetConnectionString("Data"), mySqlOptionsAction =>
+            {
+                mySqlOptionsAction.CharSetBehavior(CharSetBehavior.AppendToAllColumns).UnicodeCharSet(CharSet.Utf8mb4);
+            }));
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +48,7 @@ namespace Blog
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting(routes =>
             {

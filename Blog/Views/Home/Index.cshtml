@@ -56,12 +56,27 @@
         <div class="function-box">
             <h5>功能</h5>
             <div class="functions">
-                <div class="function">
-                    <a class="text-dark">登录</a>
-                </div>
-                <div class="function">
-                    <a class="text-dark">注册</a>
-                </div>
+                @if (ViewBag.User == null)
+                {
+                    <div class="function">
+                        <a asp-controller="Login" asp-action="Index" class="text-dark">登录</a>
+                    </div>
+                    <div class="function">
+                        <a asp-controller="Register" asp-action="Index" class="text-dark">注册</a>
+                    </div>
+                }
+                else
+                {
+                    @if (ViewBag.User.UserRole == UserRole.Admin)
+                    {
+                        <div class="function">
+                            <a asp-controller="Admin" asp-action="Index" class="text-dark">管理平台</a>
+                        </div>
+                    }
+                    <div class="function">
+                        <a asp-controller="Home" asp-action="Logout" class="text-dark">注销</a>
+                    </div>
+                }
             </div>
         </div>
     </div>

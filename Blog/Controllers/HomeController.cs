@@ -8,8 +8,12 @@ using Blog.Models;
 
 namespace Blog.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController(DataContext dataContext) : base(dataContext)
+        {
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -19,6 +23,12 @@ namespace Blog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userid");
+            return Redirect("/");
         }
     }
 }

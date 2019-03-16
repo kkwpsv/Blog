@@ -14,6 +14,16 @@ namespace Blog.Models
         {
 
         }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(x => x.Username).IsUnique();
+        }
     }
 
     public enum UserRole
@@ -27,9 +37,9 @@ namespace Blog.Models
         public int UserID { get; set; }
         public UserRole UserRole { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required]
-        public string PassWord { get; set; }
+        public string Password { get; set; }
         [Required]
         public string Email { get; set; }
         public bool IsDeleted { get; set; }
