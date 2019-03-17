@@ -1,0 +1,48 @@
+﻿header {
+    height: 50px;
+    background-color: #222;
+    line-height: 50px;
+    font-size: 20px;
+    color: #888;
+}
+
+    header.navbar {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    header .navbar-toggler-icon {
+        color: #eee;
+    }
+
+.pc-nav {
+    background-color: #222;
+    padding: 20px 0;
+    height: calc(100vh - 50px);
+    width: 150px;
+}
+
+    .pc-nav li {
+        line-height: 40px;
+        height: 40px;
+        padding-left: 40px;
+    }
+
+        .pc-nav li.selected {
+            background-color: #444;
+        }
+
+    .pc-nav a {
+        color: #eee;
+        font-weight: 200;
+    }
+
+.mobile-nav {
+    background-color: #222;
+}
+
+    .mobile-nav li {
+        line-height: 40px;
+        height: 40px;
+        padding-left: 40px;
+    }
