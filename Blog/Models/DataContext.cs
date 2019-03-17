@@ -22,7 +22,17 @@ namespace Blog.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>().HasIndex(x => x.CategoryName).IsUnique();
+            modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Article>().HasQueryFilter(x => !x.IsDeleted);
+
             modelBuilder.Entity<User>().HasIndex(x => x.Username).IsUnique();
+            modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Comment>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Category>().HasData(new Category { CategoryID = -1, CategoryName = "未分类" });
         }
     }
 
@@ -50,20 +60,23 @@ namespace Blog.Models
         public int CategoryID { get; set; }
         [Required]
         public string CategoryName { get; set; }
-        public Category FatherCategory { get; set; }
         public bool IsDeleted { get; set; }
     }
 
     public class Article
     {
         public int ArticleID { get; set; }
+        [ForeignKey("ArticleCategoryID")]
         public Category ArticleCategory { get; set; }
+        public int ArticleCategoryID { get; set; }
         [Required]
         public string ArticleTitle { get; set; }
         [Required]
         public string ArticleContent { get; set; }
-        public bool IsPrivate { get; set; }
+        [Required]
+        public string ArticleSummary { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 
     public class Comment

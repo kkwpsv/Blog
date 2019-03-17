@@ -27,7 +27,7 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddMvc().AddRazorRuntimeCompilation().AddNewtonsoftJson(setupAction => setupAction.SerializerSettings.ContractResolver = null);
             services.AddDbContext<DataContext>(optionsAction => optionsAction.UseMySql(Configuration.GetConnectionString("Data"), mySqlOptionsAction =>
             {
                 mySqlOptionsAction.CharSetBehavior(CharSetBehavior.AppendToAllColumns).UnicodeCharSet(CharSet.Utf8mb4);

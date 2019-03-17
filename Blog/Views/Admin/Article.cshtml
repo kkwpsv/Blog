@@ -1,0 +1,70 @@
+﻿@model ArticleModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="Admin" asp-action="EditArticle" asp-route-id="@Model?.ArticleID" method="post">
+    <div class="form-row">
+        <input type="hidden" asp-for="ArticleID" />
+        <div class="form-group col-md-8 col-12">
+            <input type="text" asp-for="ArticleTitle" class="form-control" />
+        </div>
+        <div class="form-group col-md-3 col-8">
+            <select asp-for="ArticleCategory" class="form-control" asp-items="ViewBag.Categorys"></select>
+        </div>
+        <div class="form-group col-md-1 col-4">
+            <input type="submit" class="form-control btn btn-primary" value="提交" />
+        </div>
+        <div class="form-group col-12">
+            <textarea asp-for="ArticleContent"></textarea>
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts{
+    <environment include="Development">
+        <script src="~/lib/summernote/dist/summernote-bs4.js"></script>
+        <script src="~/lib/summernote/dist/lang/summernote-zh-CN.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/summernote/dist/summernote-bs4.min.js"></script>
+        <script src="~/lib/summernote/dist/lang/summernote-zh-CN.min.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav-article").addClass("selected");
+            $('#ArticleContent').summernote(
+                {
+                    height: 600,
+                    lang: "zh-CN",
+                    callbacks: {
+                        onImageUpload: function (files) {
+                            var data = new FormData();
+                            data.append("image", files[0]);
+                            $.ajax({
+                                data: data,
+                                type: "POST",
+                                url: "/Admin/UploadImage",
+                                contentType: false,
+                                processData: false,
+                                success: function (data) {
+                                    $('#ArticleContent').summernote('insertImage', data.ImgUrl);
+                                }
+                            });
+
+                        }
+                    }
+                });
+        });
+    </script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/summernote/dist/summernote-bs4.css" />
+}
+
+
+
+

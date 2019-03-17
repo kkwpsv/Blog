@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Models;
+using Lsj.Util.Text;
+using Lsj.Util.AspNetCore.PagedList;
 
 namespace Blog.Controllers
 {
@@ -14,9 +16,25 @@ namespace Blog.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(HomeModel model)
         {
-            return View();
+            var articles = dataContext.Articles.AsQueryable();
+
+            if (!model.Keyword.IsNullOrEmpty())
+            {
+                articles = articles.Where(x => x.ArticleTitle.Contains(model.Keyword));
+            }
+            else if (model.CategoryID != 0)
+            {
+                articles = articles.Where(x => x.ArticleCategoryID == model.CategoryID);
+            }
+
+            model.Articles = articles.ToPagedList(model.PageNum, 10);
+
+            ViewBag.Categories = dataContext.Categories;
+
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

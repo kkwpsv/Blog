@@ -14,18 +14,11 @@ namespace Blog.Migrations
                     CategoryID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryName = table.Column<string>(nullable: false),
-                    FatherCategoryCategoryID = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryID);
-                    table.ForeignKey(
-                        name: "FK_Categories_Categories_FatherCategoryCategoryID",
-                        column: x => x.FatherCategoryCategoryID,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,21 +44,21 @@ namespace Blog.Migrations
                 {
                     ArticleID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ArticleCategoryCategoryID = table.Column<int>(nullable: true),
+                    ArticleCategoryID = table.Column<int>(nullable: false),
                     ArticleTitle = table.Column<string>(nullable: false),
                     ArticleContent = table.Column<string>(nullable: false),
-                    IsPrivate = table.Column<bool>(nullable: false),
+                    ArticleSummary = table.Column<string>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Articles", x => x.ArticleID);
                     table.ForeignKey(
-                        name: "FK_Articles_Categories_ArticleCategoryCategoryID",
-                        column: x => x.ArticleCategoryCategoryID,
+                        name: "FK_Articles_Categories_ArticleCategoryID",
+                        column: x => x.ArticleCategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,15 +89,21 @@ namespace Blog.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Articles_ArticleCategoryCategoryID",
-                table: "Articles",
-                column: "ArticleCategoryCategoryID");
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryID", "CategoryName", "IsDeleted" },
+                values: new object[] { -1, "未分类", false });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_FatherCategoryCategoryID",
+                name: "IX_Articles_ArticleCategoryID",
+                table: "Articles",
+                column: "ArticleCategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryName",
                 table: "Categories",
-                column: "FatherCategoryCategoryID");
+                column: "CategoryName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_CommentArticleArticleID",

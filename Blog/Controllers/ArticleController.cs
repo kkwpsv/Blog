@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Controllers
 {
@@ -14,9 +15,20 @@ namespace Blog.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            return View();
+
+            var article = dataContext.Articles.Where(x => x.ArticleID == id).Include(x => x.Comments).SingleOrDefault();
+            if (article != null)
+            {
+                ViewBag.Categories = dataContext.Categories;
+                return View(article);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
     }
 }

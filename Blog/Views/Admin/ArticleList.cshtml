@@ -1,0 +1,65 @@
+﻿@model IPagedList<Article>
+@{
+    ViewData["Title"] = "Index";
+}
+<a class="btn btn-primary" asp-controller="Admin" asp-action="CreateArticle">发表文章</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    文章ID
+                </th>
+                <th>
+                    文章标题
+                </th>
+                <th>
+                    文章概要
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleSummary)
+                    </td>
+                    <td>
+                        <a asp-action="EditArticle" asp-route-id="@item.ArticleID">编辑</a>
+                        |&nbsp;
+                        <a asp-action="DeleteArticle" asp-route-id="@item.ArticleID">删除</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pager">
+    <pager list="Model" param-page-number="PageNum" asp-controller="Admin" asp-action="ArticleList"></pager>
+</div>
+
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav-article").addClass("selected");
+        });
+    </script>
+}
+
+
+
+

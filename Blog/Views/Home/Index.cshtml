@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeModel
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -6,10 +7,12 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/css/index.css" />
         <link rel="stylesheet" href="~/css/right.css" />
+        <link rel="stylesheet" href="~/css/pagedlist.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/index.min.css" />
         <link rel="stylesheet" href="~/css/right.min.css" />
+        <link rel="stylesheet" href="~/css/pagedlist.min.css" />
     </environment>
 }
 
@@ -19,26 +22,21 @@
 <div class="content row">
     <div class="main col-md-8">
         <div class="articles">
-            <div class="article">
-                <div class="article-title">
-                    <h3>文章标题</h3>
-                    <p class="text-secondary">发布于2000年1月1日&nbsp;<a>编辑</a></p>
+            @foreach (var article in Model.Articles)
+            {
+                <div class="article">
+                    <div class="article-title">
+                        <a asp-controller="Article" asp-action="Index" asp-route-id="@article.ArticleID"><h3>@article.ArticleTitle</h3></a>
+                    </div>
+                    <div class="article-content">
+                        <p>@article.ArticleSummary</p>
+                    </div>
                 </div>
-                <div class="article-content">
-                    <p>文章内容</p>
-                </div>
-            </div>
-            <div class="article">
-                <div class="article-title">
-                    <h3>文章标题</h3>
-                    <p class="text-secondary">发布于2000年1月1日&nbsp;<a>编辑</a></p>
-                </div>
-                <div class="article-content">
-                    <p>文章内容</p>
-                </div>
-            </div>
+            }
         </div>
-        <pager></pager>
+        <div class="pager">
+            <pager list="Model.Articles" param-page-number="@Model.PageNum" asp-controller="Home" asp-action="Index" asp-route-Keyword="@Model.Keyword" asp-route-CategoryID="@Model.CategoryID"></pager>
+        </div>
     </div>
     @Html.Partial("Right")
 </div>

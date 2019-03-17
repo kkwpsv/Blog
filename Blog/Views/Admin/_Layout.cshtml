@@ -8,22 +8,30 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/admin.css" />
+        <link rel="stylesheet" href="~/css/pagedlist.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" />
         <link rel="stylesheet" href="~/css/admin.min.css" />
+        <link rel="stylesheet" href="~/css/pagedlist.min.css" />
     </environment>
     @RenderSection("Styles", required: false)
 </head>
 <body>
     <header class="navbar navbar-dark">
         管理后台
-        <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target=".mobile-nav" >
+        <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target=".mobile-nav">
             <span class="navbar-toggler-icon"></span>
         </button>
     </header>
-    @RenderBody()
+    @Html.Partial("Nav")
+
+
+    <div class="content">
+        @RenderBody()
+    </div>
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

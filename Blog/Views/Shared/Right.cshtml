@@ -5,12 +5,12 @@
     <div class="category-box">
         <h5>分类目录</h5>
         <div class="categories">
-            <div class="category">
-                <a class="text-dark">分类1</a>
-            </div>
-            <div class="category">
-                <a class="text-dark">分类2</a>
-            </div>
+            @foreach (Category category in ViewBag.Categories)
+            {
+                <div class="category">
+                    <a asp-controller="Home" asp-action="Index" asp-route-CategoryID="@category.CategoryID" class="text-dark">@category.CategoryName</a>
+                </div>
+            }
         </div>
     </div>
     <div class="function-box">

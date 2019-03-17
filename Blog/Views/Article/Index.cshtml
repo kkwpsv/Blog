@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Article
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -20,37 +21,24 @@
     <div class="main col-md-8">
         <div class="article">
             <div class="article-title">
-                <h3>文章标题</h3>
-                <p class="text-secondary">发布于2000年1月1日&nbsp;<a>编辑</a></p>
+                <h3>@Model.ArticleTitle</h3>
             </div>
             <div class="article-content">
-                <p>文章内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+                @Html.Raw(Model.ArticleContent)
             </div>
         </div>
         <div class="comment-box">
             <h5>评论</h5>
             <div class="comments">
-                <div class="comment">
-                    <p class="comment-username text-secondary">评论者</p>
-                    <p class="comment-time text-secondary">2000年1月1日</p>
-                    <div class="comment-content">
-                        <p>评论内容啊啊啊啊啊啊啊啊啊啊阿啊啊啊啊啊阿啊啊啊啊</p>
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment">
+                        <p class="comment-username text-secondary">@comment.CommentUser.Username</p>
+                        <div class="comment-content">
+                            <p>@comment.CommentContent</p>
+                        </div>
                     </div>
-                </div>
-                <div class="comment">
-                    <p class="comment-username text-secondary">评论者</p>
-                    <p class="comment-time text-secondary">2000年1月1日</p>
-                    <div class="comment-content">
-                        <p>评论内容啊啊啊啊啊啊啊啊啊啊阿啊啊啊啊啊阿啊啊啊啊</p>
-                    </div>
-                </div>
-                <div class="comment">
-                    <p class="comment-username text-secondary">评论者</p>
-                    <p class="comment-time text-secondary">2000年1月1日</p>
-                    <div class="comment-content">
-                        <p>评论内容啊啊啊啊啊啊啊啊啊啊阿啊啊啊啊啊阿啊啊啊啊</p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
         <div class="newcomment-box">
