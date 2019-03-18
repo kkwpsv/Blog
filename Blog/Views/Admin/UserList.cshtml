@@ -1,0 +1,94 @@
+﻿@model IPagedList<User>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    用户ID
+                </th>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @if (item.UserRole == UserRole.Admin)
+                        {
+                            <a href="#" data-toggle="modal" data-target="#updatePassword">修改密码</a>
+                        }
+                        else
+                        {
+                            <a asp-action="DeleteUser" asp-route-id="@item.UserID">删除</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pager">
+    <pager list="Model" param-page-number="PageNum" asp-controller="Admin" asp-action="CategoryList"></pager>
+</div>
+
+
+<div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="updatePasswordTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatePasswordTitle">修改密码</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Admin" asp-action="UpdatePassword" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>新密码</label>
+                        <input type="password" class="form-control" name="password" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav-user").addClass("selected");
+        });
+    </script>
+}
+
+
+
+

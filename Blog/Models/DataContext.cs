@@ -38,7 +38,9 @@ namespace Blog.Models
 
     public enum UserRole
     {
+        [Display(Name = "管理员")]
         Admin,
+        [Display(Name = "访客")]
         Guest
     }
 
@@ -61,6 +63,7 @@ namespace Blog.Models
         [Required]
         public string CategoryName { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<Article> Articles { get; set; }
     }
 
     public class Article

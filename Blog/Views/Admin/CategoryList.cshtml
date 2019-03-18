@@ -1,0 +1,111 @@
+﻿@model IPagedList<Category>
+@{
+    ViewData["Title"] = "Index";
+}
+<btn class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">新增分类</btn>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    分类ID
+                </th>
+                <th>
+                    分类名称
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        <a href="#" data-toggle="modal" data-target="#editCategoryModal" onclick="$('#editCategoryID').val('@item.CategoryID');$('#editCategoryName').val('@item.CategoryName');">编辑</a>|
+                        <a asp-action="DeleteCategory" asp-route-id="@item.CategoryID">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pager">
+    <pager list="Model" param-page-number="PageNum" asp-controller="Admin" asp-action="CategoryList"></pager>
+</div>
+
+
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalTitle">新增分类</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Admin" asp-action="CategoryList" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="pageNum" value="@Model.PageNumber" />
+                    <input type="hidden" name="categoryID" value="0" />
+                    <div class="form-group">
+                        <label>分类名称</label>
+                        <input type="text" class="form-control" name="categoryName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalTitle">编辑分类</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Admin" asp-action="CategoryList" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="pageNum" value="@Model.PageNumber" />
+                    <input type="hidden" name="categoryID" id="editCategoryID" value="0" />
+                    <div class="form-group">
+                        <label>分类名称</label>
+                        <input type="text" class="form-control" id="editCategoryName" name="categoryName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav-category").addClass("selected");
+        });
+    </script>
+}
+
+
+
+
