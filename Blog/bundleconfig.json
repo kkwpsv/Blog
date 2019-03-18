@@ -16,5 +16,23 @@
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/admin.min.css",
+    "inputFiles": [
+      "wwwroot/css/admin.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/article.min.css",
+    "inputFiles": [
+      "wwwroot/css/article.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/right.min.css",
+    "inputFiles": [
+      "wwwroot/css/right.css"
+    ]
   }
 ]
