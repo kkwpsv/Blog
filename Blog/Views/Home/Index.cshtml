@@ -7,12 +7,10 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/css/index.css" />
         <link rel="stylesheet" href="~/css/right.css" />
-        <link rel="stylesheet" href="~/css/pagedlist.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/index.min.css" />
         <link rel="stylesheet" href="~/css/right.min.css" />
-        <link rel="stylesheet" href="~/css/pagedlist.min.css" />
     </environment>
 }
 
@@ -34,9 +32,7 @@
                 </div>
             }
         </div>
-        <div class="pager">
-            <pager list="Model.Articles" param-page-number="@Model.PageNum" asp-controller="Home" asp-action="Index" asp-route-Keyword="@Model.Keyword" asp-route-CategoryID="@Model.CategoryID"></pager>
-        </div>
+        <pager list="Model.Articles" param-page-number="PageNum" asp-controller="Home" asp-action="Index" asp-route-Keyword="@Model.Keyword" asp-route-CategoryID="@Model.CategoryID"></pager>
     </div>
     @Html.Partial("Right")
 </div>

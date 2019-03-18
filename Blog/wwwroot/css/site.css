@@ -39,6 +39,6 @@ ul {
     border-top: 3px solid #eee;
 }
 
-.pager {
-    text-align: center;
+.pagination {
+    justify-content: center !important;
 }

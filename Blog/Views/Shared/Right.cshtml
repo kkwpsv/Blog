@@ -1,6 +1,10 @@
 ﻿<div class="col-md-3 offset-md-1">
+    <div class="line d-md-none">
+    </div>
     <div class="search-box">
-        <input class="form-control" placeholder="搜索..." />
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <input class="form-control" name="Keyword" placeholder="搜索..." />
+        </form>
     </div>
     <div class="category-box">
         <h5>分类目录</h5>
@@ -19,7 +23,7 @@
             @if (ViewBag.User == null)
             {
                 <div class="function">
-                    <a asp-controller="Login" asp-action="Index" class="text-dark">登录</a>
+                    <a asp-controller="Login" asp-action="Index" asp-route-articleID="@((Model as Article)?.ArticleID)" class="text-dark">登录</a>
                 </div>
                 <div class="function">
                     <a asp-controller="Register" asp-action="Index" class="text-dark">注册</a>

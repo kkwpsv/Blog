@@ -4,18 +4,19 @@
 }
 
 @section Styles{
-    <environment include="Development">
-        <link rel="stylesheet" href="~/css/login.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/login.min.css" />
-    </environment>
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/login.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/login.min.css" />
+</environment>
 }
 
 <h3>登录</h3>
 <div class="form-group">
     <form asp-controller="Login" asp-action="Index" method="post">
         <div asp-validation-summary="All"></div>
+        <input type="hidden" asp-for="ArticleID" />
         <div class="form-group">
             <input class="form-control" asp-for="Username" />
         </div>

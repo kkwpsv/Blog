@@ -15,10 +15,10 @@ namespace Blog.Controllers
         {
         }
 
+        [HttpGet]
         public IActionResult Index(int id)
         {
-
-            var article = dataContext.Articles.Where(x => x.ArticleID == id).Include(x => x.Comments).SingleOrDefault();
+            var article = dataContext.Articles.Where(x => x.ArticleID == id).Include(x => x.Comments).ThenInclude(x => x.CommentUser).SingleOrDefault();
             if (article != null)
             {
                 ViewBag.Categories = dataContext.Categories;
@@ -28,7 +28,33 @@ namespace Blog.Controllers
             {
                 return NotFound();
             }
+        }
 
+        [HttpPost]
+        public IActionResult Index(int id, string content)
+        {
+            if (this.user == null)
+            {
+                return NotFound();
+            }
+            var article = dataContext.Articles.Where(x => x.ArticleID == id).Include(x => x.Comments).ThenInclude(x => x.CommentUser).SingleOrDefault();
+            if (article != null)
+            {
+                ViewBag.Categories = dataContext.Categories;
+                var comment = new Comment
+                {
+                    CommentArticle = article,
+                    CommentContent = content,
+                    CommentUser = this.user
+                };
+                dataContext.Add(comment);
+                dataContext.SaveChanges();
+                return View(article);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

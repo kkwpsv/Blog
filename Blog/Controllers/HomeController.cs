@@ -29,7 +29,7 @@ namespace Blog.Controllers
                 articles = articles.Where(x => x.ArticleCategoryID == model.CategoryID);
             }
 
-            model.Articles = articles.ToPagedList(model.PageNum, 10);
+            model.Articles = articles.ToPagedList(model.PageNum, 5);
 
             ViewBag.Categories = dataContext.Categories;
 

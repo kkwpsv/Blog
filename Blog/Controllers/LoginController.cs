@@ -17,10 +17,10 @@ namespace Blog.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int articleID)
         {
             HttpContext.Session.Remove("userid");
-            return View();
+            return View(new LoginModel { ArticleID = articleID });
         }
 
         [HttpPost]
@@ -36,7 +36,14 @@ namespace Blog.Controllers
                 if (user != null)
                 {
                     this.HttpContext.Session.SetInt32("userid", user.UserID);
-                    return new JavaScriptResult { Content = "<script>alert('登录成功。');window.location.href='/'</script>" };
+                    if (loginModel.ArticleID != 0)
+                    {
+                        return new JavaScriptResult { Content = $"<script>alert('登录成功。');window.location.href='/Article/Index/{loginModel.ArticleID}'</script>" };
+                    }
+                    else
+                    {
+                        return new JavaScriptResult { Content = "<script>alert('登录成功。');window.location.href='/'</script>" };
+                    }
                 }
                 else
                 {

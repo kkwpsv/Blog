@@ -45,14 +45,16 @@
             <h5>发表评论</h5>
             @if (ViewBag.User == null)
             {
-                <p>请先<a asp-controller="Login" asp-action="Index">登录</a></p>
+                <p>请先<a asp-controller="Login" asp-action="Index" asp-route-articleID="@Model.ArticleID">登录</a></p>
             }
             else
             {
-                <div class="form-group">
-                    <textarea class="form-control"></textarea>
-                </div>
-                <input class="btn btn-outline-secondary" type="submit" value="发表" />
+                <form asp-controller="Article" asp-route-id="@Model.ArticleID" method="post">
+                    <div class="form-group">
+                        <textarea class="form-control" name="content"></textarea>
+                    </div>
+                    <input class="btn btn-outline-secondary" type="submit" value="发表" />
+                </form>
             }
 
 

@@ -37,3 +37,8 @@
     .function:last-child {
         margin-bottom: 0;
     }
+
+.line {
+    margin-top: 20px;
+    border-bottom: 1px solid #eee;
+}

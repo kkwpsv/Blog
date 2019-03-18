@@ -17,5 +17,7 @@ namespace Blog.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "密码不能为空")]
         public string Password { get; set; }
+
+        public int ArticleID { get; set; }
     }
 }
