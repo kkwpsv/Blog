@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Lsj.Util.AspNetCore.PagedList;
 using Lsj.Util.AspNetCore.MVC;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Controllers
 {
@@ -161,14 +162,14 @@ namespace Blog.Controllers
             {
                 return NotFound();
             }
-            var category = dataContext.Categories.SingleOrDefault(x => x.CategoryID == id);
+            var category = dataContext.Categories.Include(x => x.Articles).SingleOrDefault(x => x.CategoryID == id);
             if (category == null)
             {
                 return NotFound();
             }
             if (category.Articles.Count != 0)
             {
-                return new JavaScriptResult { Content = "<script>alert('分类中含有文章，请先删除文章。');window.location.href='/Admin/ArticleList'</script>" };
+                return new JavaScriptResult { Content = "<script>alert('分类中含有文章，请先删除文章。');window.location.href='/Admin/CategoryList'</script>" };
             }
             category.IsDeleted = true;
             dataContext.SaveChanges();
