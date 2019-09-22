@@ -50,14 +50,8 @@ namespace Blog
             app.UseStaticFiles();
             app.UseSession();
 
-            app.UseRouting(routes =>
-            {
-                routes.MapControllerRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRazorPages();
-            });
-
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }
